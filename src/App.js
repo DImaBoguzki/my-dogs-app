@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
-
+import NavBar from './Components/navbar/navbar';
+import GridDog from './Components/gridDogs/gridDogs';
+import DogDetail from './Components/dogsDetail/dogsDetails';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <NavBar/>
+        <div>
+          <Switch>
+              <Route exact path='/' render={()=><GridDog/>} />
+              <Route exact path='/dog/:name' render={(routeData)=><DogDetail route={routeData}/>} />
+              <Route render={()=><ErrorPage/>} />
+          </Switch>
+        </div>
     </div>
   );
 }
 
 export default App;
+
+function ErrorPage() {
+  return (
+    <h1>404</h1>
+  )
+}
